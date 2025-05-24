@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { userRoutes } from '../routes/user.routes';
+import { productRoutes } from '../routes/product.routes';
 
 export class Routes {
     private router: Router;
@@ -13,10 +14,11 @@ export class Routes {
         // User Routes - /api/users
         this.router.use('/api/users', userRoutes.router);
 
+        // Product Routes - /api/products
+        this.router.use('/api/products', productRoutes.router);
 
         // Buraya diğer route grupları eklenebilir
         // this.router.use('/api/auth', authRoutes.router);
-        // this.router.use('/api/products', productRoutes.router);
     }
 
     public getRouter(): Router {

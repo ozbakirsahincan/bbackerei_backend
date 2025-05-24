@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/user.controller';
-import { asyncHandler } from '../middlewares/errors/error.middleware';
+import { asyncHandler } from '../middlewares/errors/async.handler';
 
 export class UserRoutes {
     public router: Router;

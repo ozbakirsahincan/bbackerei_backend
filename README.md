@@ -96,13 +96,122 @@ API, RESTful prensiplerine uygun olarak tasarlanmıştır ve aşağıdaki endpoi
 | POST    | /api/auth/logout       | Kullanıcı çıkışı                | {token}                            | Başarı mesajı                      |
 | GET     | /api/auth/me           | Mevcut kullanıcı bilgisi        | -                                  | Kullanıcı bilgileri                |
 
-### Ürün Endpointleri (Planlanan)
+### Ürün Endpointleri
 
 | Metot   | Endpoint               | Açıklama                        | İstek Gövdesi                       | Yanıt                              |
 |---------|------------------------|---------------------------------|------------------------------------|------------------------------------|
 | GET     | /api/products          | Tüm ürünleri listeler           | -                                  | Ürün nesneleri dizisi              |
 | GET     | /api/products/:id      | ID'ye göre ürün getirir         | -                                  | Tek ürün nesnesi                   |
-| POST    | /api/products          | Yeni ürün oluşturur             | {name, price, category, stock}     | Oluşturulan ürün                   |
-| PUT     | /api/products/:id      | Ürün bilgilerini günceller      | {name?, price?, category?, stock?} | Güncellenmiş ürün                  |
+| POST    | /api/products          | Yeni ürün oluşturur             | {name, description?, price, category, isAvailable?, imageUrl?} | Oluşturulan ürün |
+| PUT     | /api/products/:id      | Ürün bilgilerini günceller      | {name?, description?, price?, category?, isAvailable?, imageUrl?} | Güncellenmiş ürün |
 | DELETE  | /api/products/:id      | Ürünü siler                     | -                                  | Başarı mesajı                      |
 | GET     | /api/products/category/:category | Kategoriye göre ürünleri listeler | - | Ürün nesneleri dizisi |
+| GET     | /api/products/filter   | Filtrelere göre ürünleri listeler | Query params: category, isAvailable, minPrice, maxPrice | Ürün nesneleri dizisi |
+
+#### Örnek İstekler ve Yanıtlar
+
+##### Yeni Ürün Oluşturma (POST /api/products)
+```json
+// İstek
+{
+    "name": "Tam Buğday Ekmeği",
+    "description": "Sağlıklı ve lezzetli tam buğday ekmeği",
+    "price": 15.99,
+    "category": "bread",
+    "isAvailable": true,
+    "imageUrl": "https://example.com/images/bread.jpg"
+}
+
+// Yanıt (201 Created)
+{
+    "id": 1,
+    "name": "Tam Buğday Ekmeği",
+    "description": "Sağlıklı ve lezzetli tam buğday ekmeği",
+    "price": 15.99,
+    "category": "bread",
+    "isAvailable": true,
+    "imageUrl": "https://example.com/images/bread.jpg",
+    "createdAt": "2025-05-25T10:30:00Z",
+    "updatedAt": "2025-05-25T10:30:00Z"
+}
+```
+
+##### Ürün Güncelleme (PUT /api/products/1)
+```json
+// İstek
+{
+    "price": 17.99,
+    "isAvailable": false
+}
+
+// Yanıt (200 OK)
+{
+    "id": 1,
+    "name": "Tam Buğday Ekmeği",
+    "description": "Sağlıklı ve lezzetli tam buğday ekmeği",
+    "price": 17.99,
+    "category": "bread",
+    "isAvailable": false,
+    "imageUrl": "https://example.com/images/bread.jpg",
+    "createdAt": "2025-05-25T10:30:00Z",
+    "updatedAt": "2025-05-25T11:15:00Z"
+}
+```
+
+##### Filtreleme ile Ürün Listesi (GET /api/products/filter)
+```
+GET /api/products/filter?category=bread&minPrice=10&maxPrice=20&isAvailable=true
+
+// Yanıt (200 OK)
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Tam Buğday Ekmeği",
+            "description": "Sağlıklı ve lezzetli tam buğday ekmeği",
+            "price": 17.99,
+            "category": "bread",
+            "isAvailable": true,
+            "imageUrl": "https://example.com/images/bread.jpg",
+            "createdAt": "2025-05-25T10:30:00Z",
+            "updatedAt": "2025-05-25T11:15:00Z"
+        },
+        // ... diğer ürünler
+    ]
+}
+```
+
+##### Kategoriye Göre Ürün Listesi (GET /api/products/category/bread)
+```json
+// Yanıt (200 OK)
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Tam Buğday Ekmeği",
+            "description": "Sağlıklı ve lezzetli tam buğday ekmeği",
+            "price": 17.99,
+            "category": "bread",
+            "isAvailable": true,
+            "imageUrl": "https://example.com/images/bread.jpg",
+            "createdAt": "2025-05-25T10:30:00Z",
+            "updatedAt": "2025-05-25T11:15:00Z"
+        },
+        // ... diğer ekmek ürünleri
+    ]
+}
+```
+
+##### Ürün Silme (DELETE /api/products/1)
+```json
+// Yanıt (200 OK)
+{
+    "message": "Ürün başarıyla silindi"
+}
+```
+
+#### Not
+- Tüm tarih alanları ISO 8601 formatında UTC zaman damgası olarak döner
+- Opsiyonel alanlar soru işareti (?) ile belirtilmiştir
+- Kategori değerleri: "bread", "pastry", "cake", "cookie", "special"
+- Fiyatlar decimal tipinde, 2 ondalık basamak hassasiyetinde tutulur

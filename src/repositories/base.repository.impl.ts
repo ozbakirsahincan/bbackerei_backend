@@ -42,12 +42,13 @@ export abstract class BaseRepository<T extends { id: number }> implements IBaseR
         return await this.repository.save(entity);
     }
 
-    async delete(id: number): Promise<void> {
+    async delete(id: number): Promise<boolean> {
         const entity = await this.findById(id);
         if (!entity) {
             throw new NotFoundError('Kayıt bulunamadı');
         }
 
         await this.repository.remove(entity);
+        return true;
     }
 }
