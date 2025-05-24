@@ -12,20 +12,30 @@ dotenv.config();
 
 const app: Express = express();
 
-// Middleware
+// CORS ayarları
+app.use(cors({
+    origin: '*', // Geliştirme ortamı için tüm originlere izin ver
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Helmet güvenlik ayarları
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
+// Diğer middleware'ler
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cors());
-app.use(helmet());
 app.use(limiter);
 
 // Veritabanı başlatma
 initializeDatabase();
 
-// Router'ı uygulama ana yoluna bağla
-app.use('/', routes);
+// API routes
+app.use(routes);
 
 // Error handling middleware
 app.use(errorHandler);
 
-app.listen(5000, () => console.log("[✓] BBackerei sunucusu 5000 portunda çalışıyor"));
+app.listen(process.env.APP_PORT, () => console.log(`[✓] BBackerei sunucusu ${process.env.APP_PORT} portunda çalışıyor`));

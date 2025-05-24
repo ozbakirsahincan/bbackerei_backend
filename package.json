@@ -1,11 +1,10 @@
 {
    "name": "bbackerei_backend",
    "version": "1.0.0",
-   "main": "server.ts",
+   "main": "index.ts",
    "scripts": {
-      "start": "nodemon",
-      "typeorm": "typeorm-ts-node-commonjs",
-      "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+      "dev": "nodemon index.ts",
+      "typeorm": "typeorm-ts-node-commonjs"
    },
    "keywords": [],
    "author": "",
