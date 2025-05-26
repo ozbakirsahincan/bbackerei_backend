@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+1-> Uygulama bir fırın için olacak . 
+2-> Mysql kullanılacak ve raw sql yazılacak 
+3-> Basic structure ile yazılacak . (controllers , models , middlewares , routes , services gibi )
+4-> Bir blog sayfası ile e ticaret sayfası arası birşey olacak .
+5-> Admin panel de olacağı için temiz bir yapı olmalı . Çok fazla soyutlamalar istemiyorum. 
+6-> Jwt ile güvenlik

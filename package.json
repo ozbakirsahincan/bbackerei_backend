@@ -1,36 +1,30 @@
 {
    "name": "bbackerei_backend",
    "version": "1.0.0",
-   "main": "index.ts",
+   "main": "server.js",
+   "type": "module",
    "scripts": {
-      "dev": "nodemon index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "dev": "nodemon server.js"
    },
    "keywords": [],
    "author": "",
    "license": "ISC",
    "description": "",
    "dependencies": {
+      "@types/node": "^22.15.21",
       "bcrypt-ts": "^7.0.0",
       "cors": "^2.8.5",
+      "dotenv": "^16.5.0",
       "express": "^5.1.0",
       "express-rate-limit": "^7.5.0",
       "helmet": "^8.1.0",
-      "mysql2": "^3.14.1",
-      "reflect-metadata": "^0.2.2",
-      "typeorm": "^0.3.24",
-      "dotenv": "^16.5.0",
-      "@types/node": "^22.15.21"
-
+      "mysql2": "^3.14.1"
    },
    "devDependencies": {
       "@types/cors": "^2.8.18",
       "@types/express": "^5.0.2",
       "@types/node": "^22.15.21",
-      "ts-node": "^10.9.2",
-      "ts-node-dev": "^2.0.0",
-      "typescript": "^5.8.3",
-      "nodemon": "^3.1.10"
-
+      "nodemon": "^3.1.10",
+      "typescript": "^5.8.3"
    }
 }
