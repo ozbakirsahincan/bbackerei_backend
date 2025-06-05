@@ -1,0 +1,33 @@
+{
+  "name": "bbackerei_backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "balkan backerei web server backend",
+  "main": "server.js",
+  "scripts": {
+    "db:init": "node src/db/init.js",
+    "db:push": "drizzle-kit push",
+    "db:seed": "node src/db/seeder.js",
+    "start": "nodemon src/server.js",
+    "dev": "npm run db:init && npm run db:push && npm run db:seed && npm run start"
+  },
+  "keywords": [],
+  "author": "shahindzhan yozbakar",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.0",
+    "mysql2": "^3.14.1"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.1",
+    "nodemon": "^3.1.10"
+  }
+}
