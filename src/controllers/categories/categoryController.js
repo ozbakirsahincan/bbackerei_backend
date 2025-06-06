@@ -38,20 +38,16 @@ export async function createCategory(req, res) {
   try {
     const { title, is_active } = req.body;
 
-    // Input validation
     if (!title || title.trim() === '') {
       return res.status(400).json({ error: 'Kategori başlığı gereklidir' });
     }
 
     const categoryData = {
       title: title.trim(),
-      is_active: is_active !== undefined ? Boolean(is_active) : true
+      is_active: is_active !== undefined ? Boolean(is_active) : true,
     };
 
-    const result = await createNewCategory(categoryData);
-
-    // Get the created category to return it
-    const createdCategory = await getCategory(result.insertId);
+    const createdCategory = await createNewCategory(categoryData);
 
     res.status(201).json(createdCategory);
   } catch (error) {
@@ -67,13 +63,11 @@ export async function updateCategory(req, res) {
       return res.status(400).json({ error: 'Geçersiz kategori ID\'si' });
     }
 
-    // Check if category exists
     const existingCategory = await getCategory(id);
     if (!existingCategory) {
       return res.status(404).json({ error: 'Kategori bulunamadı' });
     }
 
-    // Input validation
     const { title, is_active } = req.body;
     if (title !== undefined && (!title || title.trim() === '')) {
       return res.status(400).json({ error: 'Kategori başlığı boş olamaz' });
@@ -85,7 +79,6 @@ export async function updateCategory(req, res) {
 
     await updateExistingCategory(id, updateData);
 
-    // Get the updated category to return it
     const updatedCategory = await getCategory(id);
 
     res.json(updatedCategory);
@@ -102,7 +95,6 @@ export async function deleteCategory(req, res) {
       return res.status(400).json({ error: 'Geçersiz kategori ID\'si' });
     }
 
-    // Check if category exists
     const existingCategory = await getCategory(id);
     if (!existingCategory) {
       return res.status(404).json({ error: 'Kategori bulunamadı' });

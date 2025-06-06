@@ -22,7 +22,3 @@ router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
 
 export default router;
-// Bu kod, kullanıcı işlemleri için bir Express.js yönlendiricisi tanımlar.
-// Tüm kullanıcıları listeleme, belirli bir kullanıcıyı alma, yeni kullanıcı oluşturma,
-// kullanıcı güncelleme ve silme işlemlerini içerir.
-// Ayrıca, tüm bu işlemler için JWT tabanlı kimlik doğrulama gerektirir.

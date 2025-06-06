@@ -1,3 +1,4 @@
+// src/routes/categories/categoryRoutes.js
 import { Router } from 'express';
 import {
   getAllCategories,
@@ -16,7 +17,3 @@ router.put('/:id', updateCategory);
 router.delete('/:id', deleteCategory);
 
 export default router;
-// src/routes/categories/categoryRoutes.js
-// Bu dosya, kategori ile ilgili tüm rotaları içerir.
-// Kategori ile ilgili CRUD işlemleri için gerekli rotaları tanımlar.
-// Bu rotalar, kategori verilerini almak, oluşturmak, güncellemek ve silmek için kullanılır.
